@@ -1,0 +1,53 @@
+#N canvas 88 451 304 163 10;
+#N canvas 363 265 391 299 LEDs-comunication 0;
+#X msg 299 41 disconnect;
+#X obj 23 109 tgl 15 0 empty empty connection_status 17 7 0 10 -262144
+-1 -1 0 1;
+#X obj 23 68 mrpeach/udpsend 169.254.7.142 8000;
+#X obj 23 43 mrpeach/packOSC;
+#X msg 128 42 connect 169.254.1.1 9000;
+#X obj 23 129 bng 15 250 50 0 connect empty Connect 17 7 0 10 -262144
+-1 -1;
+#X obj 23 149 bng 15 250 50 0 disconnect empty Disconnect 17 7 0 10
+-262144 -1 -1;
+#X obj 153 109 tgl 15 0 osc-messages empty osc-messages 17 7 0 10 -262144
+-1 -1 0 1;
+#X obj 128 20 r connect;
+#X obj 299 20 r disconnect;
+#X obj 153 129 bng 15 250 50 0 clear empty clear 17 7 0 10 -262144
+-1 -1;
+#X obj 23 19 r osc;
+#X connect 0 0 2 0;
+#X connect 2 0 1 0;
+#X connect 3 0 2 0;
+#X connect 4 0 2 0;
+#X connect 8 0 4 0;
+#X connect 9 0 0 0;
+#X connect 11 0 3 0;
+#X coords 0 -1 1 1 230 80 1 15 90;
+#X restore 10 21 pd LEDs-comunication;
+#N canvas 479 23 424 189 analysis 0;
+#X obj 26 33 tgl 15 0 strip-1 empty stripLED-1 17 7 0 10 -262144 -1
+-1 0 1;
+#X obj 163 111 list prepend colorId;
+#X obj 163 133 list trim;
+#X obj 294 111 list prepend status;
+#X obj 294 90 r strip-1;
+#X msg 163 57 255 255 255 1;
+#X msg 182 79 0 0 0 1;
+#X obj 163 12 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 163 32 sel 1 0;
+#X text 251 57 R \, G \, B \, led id (1-300);
+#X obj 163 159 stripLED 1 1 0 0 0 20 0;
+#X connect 1 0 2 0;
+#X connect 2 0 10 0;
+#X connect 3 0 2 0;
+#X connect 4 0 3 0;
+#X connect 5 0 1 0;
+#X connect 6 0 1 0;
+#X connect 7 0 8 0;
+#X connect 8 0 5 0;
+#X connect 8 1 6 0;
+#X coords 0 -1 1 1 126 44 1 20 10;
+#X restore 11 107 pd analysis;
